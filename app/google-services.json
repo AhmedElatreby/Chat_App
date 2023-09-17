@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "749978974134",
+    "project_id": "chat-app-223c1",
+    "storage_bucket": "chat-app-223c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749978974134:android:f80616f2c8df22cfdb3317",
+        "android_client_info": {
+          "package_name": "com.medo.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3Im_xpW5xKWyifuPaXIFklDr_rMla71s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

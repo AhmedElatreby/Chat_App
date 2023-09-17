@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/gradient"
+  tools:context=".MainActivity">
+  
+  <EditText
+    android:id="@+id/edtUserName"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="User Name"
+    android:textColor="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.403" />
+  
+  <EditText
+    android:id="@+id/edtEmail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:hint="Email"
+    android:textColor="@color/white"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/edtUserName" />
+  
+  <EditText
+    android:id="@+id/edtPassword"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Password"
+    android:inputType="textPassword"
+  
+    android:textColor="@color/white"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
+  
+  <Button
+    android:id="@+id/btnSignUp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:text="Sign Up"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:background="@drawable/round_blue_shap"
+    app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
+  
+  <TextView
+    android:id="@+id/txtLoginInfo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="Already have an account? Log in"
+    app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
+    app:layout_constraintStart_toStartOf="@+id/btnSignUp"
+    app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
+    android:textColor="@color/white"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
