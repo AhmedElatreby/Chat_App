@@ -1,3 +1,8 @@
 <resources>
-  <string name="app_name">Chat App</string>
+    <string name="app_name">Chat App</string>
+    <string name="logIn">Log in</string>
+    <string name="donotHaveAccount">Don\'t have an account? Sign up</string>
+    <string name="signUp">Sign up</string>
+    <string name="signup">Sign Up</string>
+    <string name="alreadHaveAccount">Already have an account? Log in</string>
 </resources>
