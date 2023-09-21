@@ -4,4 +4,14 @@
     <!-- Customize your dark theme here. -->
     <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
   </style>
+
+<!--  <style name="StyleWithoutToolbar" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--    <color name="black">#FF000000</color>-->
+<!--    <color name="white">#FFFFFFFF</color>-->
+<!--    <color name="colorPrimary">#33A2FF</color>-->
+<!--    <color name="colorDark">#3311FF</color>-->
+<!--    <color name="colorAccent">#FFAAFF</color>-->
+<!--    <color name="colorSecondary">#F433A233</color>-->
+
+<!--  </style>-->
 </resources>

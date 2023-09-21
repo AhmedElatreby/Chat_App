@@ -51,6 +51,7 @@ public class FriendsActivity extends AppCompatActivity {
         onUserClickListener = new UserAdapter.OnUserClickListener() {
             @Override
             public void onUserClicked(int position) {
+                startActivity(new Intent(FriendsActivity.this, MessageActivity.class));
                 Toast.makeText(FriendsActivity.this, "Tapped on user "+ users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
 
             }
