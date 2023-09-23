@@ -47,10 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
     btnSubmit.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View v) {
-        if (isSignUp) {
+      public void onClick(View view) {
+
+        if (edtEmail.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty()){
+          if (isSignUp && edtUserName.getText().toString().isEmpty()){
+            Toast.makeText(MainActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
+            return;
+          }
+        }
+
+        if (isSignUp){
           handleSignUp();
-        } else {
+        }else {
           handleLogin();
         }
       }
@@ -68,56 +76,40 @@ public class MainActivity extends AppCompatActivity {
 
         if (isSignUp) {
           handleSignUp();
-//          edtUserName.setVisibility(View.GONE);
-//          btnSubmit.setText(R.string.logIn);
-//          txtLoginInfo.setText(R.string.donotHaveAccount);
         } else {
           handleLogin();
-//          isSignUp = true;
-//          edtUserName.setVisibility(View.VISIBLE);
-//          btnSubmit.setText(R.string.signUp);
-//          txtLoginInfo.setText(R.string.alreadHaveAccount);
         }
       }
     });
-
-
   }
 
-  private void handleLogin() {
-    FirebaseAuth.getInstance().signInWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText().toString())
-            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+  private void handleLogin(){
+    FirebaseAuth.getInstance().signInWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
       @Override
       public void onComplete(@NonNull Task<AuthResult> task) {
-        if (task.isSuccessful()) {
-          startActivity(new Intent(MainActivity.this, FriendsActivity.class));
+        if (task.isSuccessful()){
+          startActivity(new Intent(MainActivity.this,FriendsActivity.class));
           Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-        } else {
-          Toast.makeText(MainActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }else {
+          Toast.makeText(MainActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
       }
     });
-
   }
 
-  private void handleSignUp() {
-    FirebaseAuth.getInstance().createUserWithEmailAndPassword(edtEmail.getText().toString(), edtPassword.getText().toString()).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+  private void handleSignUp(){
+    FirebaseAuth.getInstance().createUserWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
       @Override
       public void onComplete(@NonNull Task<AuthResult> task) {
-        if (task.isSuccessful()) {
-          FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getCurrentUser().getUid())
-                          .setValue(new User(edtUserName.getText().toString(), edtEmail.getText().toString()
-                          ,""));
-
-          startActivity(new Intent(MainActivity.this, FriendsActivity.class));
-          Toast.makeText(MainActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
-        } else {
-          Toast.makeText(MainActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
+        if (task.isSuccessful()){
+          FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new User(edtUserName.getText().toString(),edtEmail.getText().toString(),""));
+          startActivity(new Intent(MainActivity.this,FriendsActivity.class));
+          Toast.makeText(MainActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
+        }else {
+          Toast.makeText(MainActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
       }
     });
-
   }
 
 }

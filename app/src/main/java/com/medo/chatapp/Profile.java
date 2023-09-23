@@ -68,38 +68,38 @@ public class Profile extends AppCompatActivity {
         });
     }
 
-    private void uploadImage() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
+    private void uploadImage(){
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
         progressDialog.show();
 
-        FirebaseStorage.getInstance().getReference("images/"+ UUID.randomUUID().toString())
-                .putFile(imagePath).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    if (task.isSuccessful()) {
-                                        updateProfilePicture(task.getResult().toString());
-                                    }
-                                }
-                            });
-                            Toast.makeText(Profile.this, "image Uploaded!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(Profile.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progress = 100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount();
-                        progressDialog.setMessage(" Uploaded "+ (int) progress + "%");
-                    }
-                });
 
+        FirebaseStorage.getInstance().getReference("images/"+ UUID.randomUUID().toString()).putFile(imagePath).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()){
+                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()){
+                                updateProfilePicture(task.getResult().toString());
+                            }
+                        }
+                    });
+                    Toast.makeText(Profile.this, "Image Uploaded!", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(Profile.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progress = 100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount();
+                progressDialog.setMessage(" Uploaded "+(int) progress + "%");
+            }
+        });
     }
 
     private void updateProfilePicture(String url) {
