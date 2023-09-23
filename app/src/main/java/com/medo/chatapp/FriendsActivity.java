@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,6 +30,7 @@ public class FriendsActivity extends AppCompatActivity {
     private UserAdapter userAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     UserAdapter.OnUserClickListener onUserClickListener;
+    String myImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,11 @@ public class FriendsActivity extends AppCompatActivity {
         onUserClickListener = new UserAdapter.OnUserClickListener() {
             @Override
             public void onUserClicked(int position) {
-                startActivity(new Intent(FriendsActivity.this, MessageActivity.class));
-                Toast.makeText(FriendsActivity.this, "Tapped on user "+ users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FriendsActivity.this, MessageActivity.class)
+                        .putExtra("username_of_roommate", users.get(position).getUsername())
+                        .putExtra("email_of_roommate", users.get(position).getEmail())
+                        .putExtra("img_of_roommate", users.get(position).getProfilePicture())
+                        .putExtra("my_img", myImageUrl));
 
             }
         };
@@ -74,7 +79,7 @@ public class FriendsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getUsers(){
+    private void getUsers() {
         users.clear();
         FirebaseDatabase.getInstance().getReference("user").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -87,6 +92,12 @@ public class FriendsActivity extends AppCompatActivity {
                 recyclerView.setAdapter(userAdapter);
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+                for (User user : users) {
+                    if (user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                        myImageUrl = user.getProfilePicture();
+                        return;
+                    }
+                }
             }
 
             @Override
